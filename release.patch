@@ -1,0 +1,23 @@
+diff --git a/release b/release
+index f2052840cb0..73787c2669d 100755
+--- a/release
++++ b/release
+@@ -40,6 +40,7 @@ PBUILDER_AUTOUPDATE=${PBUILDER_AUTOUPDATE=4320}
+ 
+ DEBUILD_NOSIGN_OPTIONS="-us -uc"
+ DEBUILD_NODEPS_OPTIONS="-d"
++DEBUILD_NOCLEAN_OPTIONS="-nc"
+ USE_PBUILDER=${USE_PBUILDER=1}
+ 
+ if [ -z "$VERSION_STRING" ] ; then
+@@ -118,8 +119,8 @@ echo -e "\nCurrent version is $VERSION_STRING"
+ if [ -z "$NO_BUILD" ] ; then
+     gen_changelog "$VERSION_STRING" "" "$AUTHOR" ""
+     if [ -z "$USE_PBUILDER" ] ; then
+-        DEB_CC=${DEB_CC:=`which gcc-10 gcc-9 gcc | head -n1`}
+-        DEB_CXX=${DEB_CXX:=`which gcc-10 g++-9 g++ | head -n1`}
++        DEB_CC=${DEB_CC:=`which clang | head -n1`}
++        DEB_CXX=${DEB_CXX:=`which clang++ | head -n1`}
+         # Build (only binary packages).
+         debuild --preserve-env -e PATH \
+         -e DEB_CC=$DEB_CC -e DEB_CXX=$DEB_CXX -e CMAKE_FLAGS="$CMAKE_FLAGS" \

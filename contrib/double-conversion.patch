@@ -1,0 +1,21 @@
+diff --git a/README.md b/README.md
+index 4ae9be5..84b48ae 100644
+--- a/README.md
++++ b/README.md
+@@ -52,3 +52,4 @@ Use `-DBUILD_TESTING=ON` to build the test executable.
+ 
+ [0]: http://www.scons.org/
+ [1]: https://cmake.org/
++
+diff --git a/double-conversion/utils.h b/double-conversion/utils.h
+index d2981ed..c19b25f 100644
+--- a/double-conversion/utils.h
++++ b/double-conversion/utils.h
+@@ -71,6 +71,7 @@ inline void abort_noreturn() { abort(); }
+     defined(__ARMEL__) || defined(__avr32__) || \
+     defined(__hppa__) || defined(__ia64__) || \
+     defined(__mips__) || \
++    defined(__loongarch64) || \
+     defined(__powerpc__) || defined(__ppc__) || defined(__ppc64__) || \
+     defined(_POWER) || defined(_ARCH_PPC) || defined(_ARCH_PPC64) || \
+     defined(__sparc__) || defined(__sparc) || defined(__s390__) || \

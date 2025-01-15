@@ -1,0 +1,24 @@
+diff --git a/cmake/target.cmake b/cmake/target.cmake
+index 7174ca3c2a9..faedd5b22b6 100644
+--- a/cmake/target.cmake
++++ b/cmake/target.cmake
+@@ -54,3 +54,19 @@ if (CMAKE_CROSSCOMPILING)
+ 
+     message (STATUS "Cross-compiling for target: ${CMAKE_CXX_COMPILE_TARGET}")
+ endif ()
++
++if (ARCH_LOONGARCH64)
++    set (ENABLE_PROTOBUF OFF CACHE INTERNAL "")
++    set (GLIBC_COMPATIBILITY OFF CACHE INTERNAL "")
++    set (ENABLE_LDAP OFF CACHE INTERNAL "")
++    set (OPENSSL_NO_ASM ON CACHE INTERNAL "")
++    set (ENABLE_JEMALLOC OFF CACHE INTERNAL "")
++    set (ENABLE_PARQUET OFF CACHE INTERNAL "")
++    set (USE_UNWIND OFF CACHE INTERNAL "")
++    set (ENABLE_GRPC OFF CACHE INTERNAL "")
++    set (ENABLE_HDFS OFF CACHE INTERNAL "")
++    set (ENABLE_MYSQL OFF CACHE INTERNAL "")
++    set (ENABLE_FASTOPS OFF CACHE INTERNAL "")
++    set (ENABLE_UTILS OFF CACHE INTERNAL "")
++    set (ENABLE_ORC=OFF OFF CACHE INTERNAL "")
++endif()

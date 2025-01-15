@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5d716985c46..d5a9975d9c6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -170,7 +170,7 @@ endif ()
+ set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
+ 
+ if (OS_LINUX)
+-    find_program (OBJCOPY_PATH NAMES "llvm-objcopy" "llvm-objcopy-12" "llvm-objcopy-11" "llvm-objcopy-10" "llvm-objcopy-9" "llvm-objcopy-8" "objcopy")
++    find_program (OBJCOPY_PATH NAMES "objcopy" "llvm-objcopy" "llvm-objcopy-12" "llvm-objcopy-11" "llvm-objcopy-10" "llvm-objcopy-9" "llvm-objcopy-8" )
+     if (OBJCOPY_PATH)
+         message(STATUS "Using objcopy: ${OBJCOPY_PATH}.")
+ 
+@@ -178,6 +178,8 @@ if (OS_LINUX)
+             set(OBJCOPY_ARCH_OPTIONS -O elf64-x86-64 -B i386)
+         elseif (ARCH_AARCH64)
+             set(OBJCOPY_ARCH_OPTIONS -O elf64-aarch64 -B aarch64)
++        elseif (ARCH_LOONGARCH64)
++            set(OBJCOPY_ARCH_OPTIONS -O elf64-loongarch -B loongarch64)
+         endif ()
+     else ()
+         message(FATAL_ERROR "Cannot find objcopy.")
+@@ -303,6 +305,12 @@ set (CMAKE_C_FLAGS                       "${CMAKE_C_FLAGS} ${COMPILER_FLAGS} ${C
+ set (CMAKE_C_FLAGS_RELWITHDEBINFO        "${CMAKE_C_FLAGS_RELWITHDEBINFO} -O3 ${CMAKE_C_FLAGS_ADD}")
+ set (CMAKE_C_FLAGS_DEBUG                 "${CMAKE_C_FLAGS_DEBUG} -O0 -g3 -ggdb3 -fno-inline ${CMAKE_C_FLAGS_ADD}")
+ 
++if (ARCH_LOONGARCH64)
++    set (CMAKE_CXX_FLAGS                 "${CMAKE_CXX_FLAGS} -mcmodel=large")
++
++    set (CMAKE_C_FLAGS                   "${CMAKE_C_FLAGS} -mcmodel=large")
++endif()
++
+ if (COMPILER_CLANG)
+     if (OS_DARWIN)
+         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")

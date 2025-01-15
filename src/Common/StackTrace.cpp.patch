@@ -1,0 +1,13 @@
+diff --git a/src/Common/StackTrace.cpp b/src/Common/StackTrace.cpp
+index 9e81cdddbda..bffad832383 100644
+--- a/src/Common/StackTrace.cpp
++++ b/src/Common/StackTrace.cpp
+@@ -188,6 +188,8 @@ static void * getCallerAddress(const ucontext_t & context)
+     return reinterpret_cast<void *>(context.uc_mcontext.pc);
+ #elif defined(__powerpc64__)
+     return reinterpret_cast<void *>(context.uc_mcontext.gp_regs[PT_NIP]);
++#elif defined(__loongarch64)
++    return reinterpret_cast<void *>(context.uc_mcontext.__pc);
+ #else
+     return nullptr;
+ #endif

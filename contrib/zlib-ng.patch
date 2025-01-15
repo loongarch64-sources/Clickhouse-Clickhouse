@@ -1,0 +1,29 @@
+diff --git a/cmake/archdetect.c b/cmake/archdetect.c
+index 32a8db8..1d24d60 100644
+--- a/cmake/archdetect.c
++++ b/cmake/archdetect.c
+@@ -57,6 +57,10 @@
+ #elif defined(__mips__) || defined(__mips)
+     #error archfound mips
+ 
++// LoongArch64
++#elif defined(__loongarch64) 
++    #error archfound loongarch64
++
+ // Motorola 68000-series
+ #elif defined(__m68k__)
+     #error archfound m68k
+diff --git a/cmake/archdetect.cmake b/cmake/archdetect.cmake
+index 9f8d1c1..eb363d3 100644
+--- a/cmake/archdetect.cmake
++++ b/cmake/archdetect.cmake
+@@ -66,6 +66,9 @@ elseif("${ARCH}" MATCHES "ia64")
+ elseif("${ARCH}" MATCHES "mips")
+     set(BASEARCH "mips")
+     set(BASEARCH_MIPS_FOUND TRUE)
++elseif("${ARCH}" MATCHES "loongarch64")
++    set(BASEARCH "loongarch")
++    set(BASEARCH_MIPS_FOUND TRUE)
+ elseif("${ARCH}" MATCHES "m68k")
+     set(BASEARCH "m68k")
+     set(BASEARCH_M68K_FOUND TRUE)

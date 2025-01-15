@@ -1,0 +1,12 @@
+diff --git a/src/Parsers/New/AST/INode.h b/src/Parsers/New/AST/INode.h
+index 68ad774e218..2ef58bd5359 100644
+--- a/src/Parsers/New/AST/INode.h
++++ b/src/Parsers/New/AST/INode.h
+@@ -17,6 +17,7 @@ class INode : public TypePromotion<INode>
+ {
+     public:
+         virtual ~INode() = default;
++        INode(const INode&) = default;
+ 
+         virtual ASTPtr convertToOld() const { return ASTPtr(); }
+         virtual String toString() const { return {}; }

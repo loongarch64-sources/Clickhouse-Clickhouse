@@ -1,0 +1,17 @@
+diff --git a/contrib/boost-cmake/CMakeLists.txt b/contrib/boost-cmake/CMakeLists.txt
+index 0759935a7db..030f88c8260 100644
+--- a/contrib/boost-cmake/CMakeLists.txt
++++ b/contrib/boost-cmake/CMakeLists.txt
+@@ -186,6 +186,12 @@ if (NOT EXTERNAL_BOOST_FOUND)
+             ${LIBRARY_DIR}/libs/context/src/asm/make_arm64_aapcs_elf_gas.S
+             ${LIBRARY_DIR}/libs/context/src/asm/ontop_arm64_aapcs_elf_gas.S
+         )
++    elseif (ARCH_LOONGARCH64)
++        set (SRCS_CONTEXT ${SRCS_CONTEXT}
++            "${LIBRARY_DIR}/libs/context/src/asm/jump_loongarch64_lp64_elf_gas.S"
++            "${LIBRARY_DIR}/libs/context/src/asm/make_loongarch64_lp64_elf_gas.S"
++            "${LIBRARY_DIR}/libs/context/src/asm/ontop_loongarch64_lp64_elf_gas.S"
++        )
+     elseif (ARCH_PPC64LE)
+         set (SRCS_CONTEXT ${SRCS_CONTEXT}
+             ${LIBRARY_DIR}/libs/context/src/asm/jump_ppc64_sysv_elf_gas.S

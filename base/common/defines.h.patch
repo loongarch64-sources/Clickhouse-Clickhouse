@@ -1,0 +1,15 @@
+diff --git a/base/common/defines.h b/base/common/defines.h
+index ada8245f494..2c75f716d87 100644
+--- a/base/common/defines.h
++++ b/base/common/defines.h
+@@ -41,8 +41,8 @@
+ #    define MAY_ALIAS __attribute__((__may_alias__))
+ #endif
+ 
+-#if !defined(__x86_64__) && !defined(__aarch64__) && !defined(__PPC__)
+-#    error "The only supported platforms are x86_64 and AArch64, PowerPC (work in progress)"
++#if !defined(__x86_64__) && !defined(__aarch64__) && !defined(__PPC__) && !defined(__loongarch64)
++#    error "The only supported platforms are x86_64 and AArch64 and LoongArch64, PowerPC (work in progress)"
+ #endif
+ 
+ /// Check for presence of address sanitizer

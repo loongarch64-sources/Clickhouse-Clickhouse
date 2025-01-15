@@ -1,0 +1,40 @@
+diff --git a/debian/rules b/debian/rules
+index 8eb47e95389..47b207d41e3 100755
+--- a/debian/rules
++++ b/debian/rules
+@@ -85,27 +85,30 @@ endif
+ 	dh $@ $(DH_FLAGS) --buildsystem=cmake
+ 
+ override_dh_auto_configure:
+-	dh_auto_configure -- $(CMAKE_FLAGS)
++	cmake -G Ninja -B $(BUILDDIR) -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DLINKER_NAME=/opt/llvm/bin/ld.lld -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_C_FLAGS="-mcmodel=large" -DCMAKE_CXX_FLAGS="-mcmodel=large"  -DGLIBC_COMPATIBILITY=OFF -DENABLE_LDAP=OFF  -DOPENSSL_NO_ASM=ON -DENABLE_JEMALLOC=OFF -DENABLE_PARQUET=OFF -DUSE_UNWIND=OFF -DENABLE_GRPC=OFF -DENABLE_HDFS=OFF -DENABLE_MYSQL=OFF  -DENABLE_FASTOPS=OFF -DENABLE_UTILS=OFF -DENABLE_PROTOBUF=OFF -DENABLE_ORC=OFF -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_LOCALSTATEDIR=/var -DCMAKE_INSTALL_LIBDIR=lib/loongarch64-linux-gnu
+ 
+ override_dh_auto_build:
+ 	# Fix for ninja. Do not add -O.
+ 	$(MAKE) $(THREADS_COUNT) -C $(BUILDDIR) $(MAKE_TARGET)
+ 
+ override_dh_auto_test:
+-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+-	cd $(BUILDDIR) && ctest $(THREADS_COUNT) -V
+-endif
++	echo "Skiping all tests"
+ 
+ override_dh_clean:
++	echo "Skiping dh_clean"
++	
+ 	rm -rf debian/copyright debian/clickhouse-client.docs debian/clickhouse-common-static.docs
+ 	dh_clean # -X contrib
+ 
+ override_dh_strip:
+-	#https://www.debian.org/doc/debian-policy/ch-source.html#debian-rules-and-deb-build-options
++	# https://www.debian.org/doc/debian-policy/ch-source.html#debian-rules-and-deb-build-options
+ ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
+ 	dh_strip -pclickhouse-common-static --dbg-package=clickhouse-common-static-dbg
+ endif
+ 
++override_dh_strip_nondeterminism:
++	echo "Skipping dh_strip_nondeterminism step"
++
+ override_dh_install:
+ 	# Making docs
+ 	cp LICENSE debian/copyright

@@ -1,0 +1,32 @@
+diff --git a/utils/release/release_lib.sh b/utils/release/release_lib.sh
+index 896fa7f08a0..ef1c54b6eb2 100644
+--- a/utils/release/release_lib.sh
++++ b/utils/release/release_lib.sh
+@@ -251,13 +251,23 @@ function make_rpm {
+     rpm_pack
+ 
+     PACKAGE=clickhouse-common-static
+-    ARCH=amd64
+-    TARGET=x86_64
++    if [[ $(uname -m) == 'loongarch64' ]]; then
++        ARCH=loongarch64
++        TARGET=loongarch64
++    else
++        ARCH=amd64
++        TARGET=x86_64
++    fi
+     unpack_pack
+ 
+     PACKAGE=clickhouse-common-static-dbg
+-    ARCH=amd64
+-    TARGET=x86_64
++    if [[ $(uname -m) == 'loongarch64' ]]; then
++        ARCH=loongarch64
++        TARGET=loongarch64
++    else
++        ARCH=amd64
++        TARGET=x86_64
++    fi
+     unpack_pack
+ 
+     mv clickhouse-*-${VERSION_FULL}-2.*.rpm ${PACKAGE_DIR}

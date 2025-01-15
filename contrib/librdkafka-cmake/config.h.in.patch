@@ -1,0 +1,13 @@
+diff --git a/contrib/librdkafka-cmake/config.h.in b/contrib/librdkafka-cmake/config.h.in
+index 80b6ea61b6e..e7893443ca6 100644
+--- a/contrib/librdkafka-cmake/config.h.in
++++ b/contrib/librdkafka-cmake/config.h.in
+@@ -66,7 +66,7 @@
+ #cmakedefine WITH_SASL_OAUTHBEARER 1
+ #cmakedefine WITH_SASL_CYRUS 1
+ // crc32chw
+-#if !defined(__PPC__) && (!defined(__aarch64__) || defined(__ARM_FEATURE_CRC32))
++#if !defined(__PPC__) && (!defined(__aarch64__) && (!defined(__loongarch64)) || defined(__ARM_FEATURE_CRC32))
+ #define WITH_CRC32C_HW 1
+ #endif
+ // regex

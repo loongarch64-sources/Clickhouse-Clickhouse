@@ -1,0 +1,17 @@
+diff --git a/cmake/find/fastops.cmake b/cmake/find/fastops.cmake
+index 5ab320bdb7a..7a70059f64c 100644
+--- a/cmake/find/fastops.cmake
++++ b/cmake/find/fastops.cmake
+@@ -1,10 +1,11 @@
+-if(NOT ARCH_ARM AND NOT OS_FREEBSD AND NOT OS_DARWIN)
++if(NOT ARCH_LOONGARCH64 AND NOT ARCH_ARM AND NOT OS_FREEBSD AND NOT OS_DARWIN)
+     option(ENABLE_FASTOPS "Enable fast vectorized mathematical functions library by Mikhail Parakhin" ${ENABLE_LIBRARIES})
+ elseif(ENABLE_FASTOPS)
+     message (${RECONFIGURE_MESSAGE_LEVEL} "Fastops library is not supported on ARM, FreeBSD and Darwin")
+ endif()
+ 
+ if(NOT ENABLE_FASTOPS)
++    message ("Not use fastops")
+     set(USE_FASTOPS 0)
+     return()
+ endif()

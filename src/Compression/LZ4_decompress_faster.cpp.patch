@@ -1,0 +1,22 @@
+diff --git a/src/Compression/LZ4_decompress_faster.cpp b/src/Compression/LZ4_decompress_faster.cpp
+index dc293941310..f4a3d3a6af5 100644
+--- a/src/Compression/LZ4_decompress_faster.cpp
++++ b/src/Compression/LZ4_decompress_faster.cpp
+@@ -70,7 +70,7 @@ inline void copyOverlap8(UInt8 * op, const UInt8 *& match, size_t offset)
+ }
+ 
+ 
+-#if defined(__x86_64__) || defined(__PPC__)
++#if defined(__x86_64__) || defined(__PPC__) || defined(__loongarch64)
+ 
+ /** We use 'xmm' (128bit SSE) registers here to shuffle 16 bytes.
+   *
+@@ -261,7 +261,7 @@ inline void copyOverlap16(UInt8 * op, const UInt8 *& match, const size_t offset)
+ }
+ 
+ 
+-#if defined(__x86_64__) || defined(__PPC__)
++#if defined(__x86_64__) || defined(__PPC__) || defined(__loongarch64)
+ 
+ inline void copyOverlap16Shuffle(UInt8 * op, const UInt8 *& match, const size_t offset)
+ {
